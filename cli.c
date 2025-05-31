@@ -134,10 +134,12 @@ int main()
         }
 
         printf("Server response:\n");
+        fflush(stdout);
         ssize_t recv_bytes;
         while ((recv_bytes = read(client_fd, buffer, BUFFER_SIZE)) > 0)
         {
-            printf("%s\n", buffer);
+            fwrite(buffer, 1, recv_bytes, stdout);
+            printf("\n");
             fflush(stdout);
             if (write(ret_fd, buffer, recv_bytes) != recv_bytes)
             {
